@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище StockroomBinarModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ColorPlastic">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameColor" Type="nvarchar" MaxLength="50" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="IDInside" Type="int" />
+  </EntityType>
+  <EntityType Name="DefectivePlastic">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PlasticType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Manufacturer" Type="nvarchar" MaxLength="50" />
+    <Property Name="Weight" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="NumberСoils" Type="int" />
+  </EntityType>
+  <EntityType Name="Deliveries">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="IDDeliveries" Type="int" />
+    <Property Name="IDProduct" Type="int" />
+    <Property Name="MaxQuantity" Type="int" />
+    <Property Name="ReadyQuantity" Type="int" />
+    <Property Name="Date" Type="date" />
+  </EntityType>
+  <EntityType Name="IDProducts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NameProduct" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PlasticProducts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DatePrint" Type="date" />
+    <Property Name="ProductWeight" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="SupportsWeight" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="EngravingStatus" Type="int" />
+    <Property Name="TimePrint" Type="time" Precision="4" />
+    <Property Name="ProductTypeID" Type="int" />
+  </EntityType>
+  <EntityType Name="PlasticStor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PlasticType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Weight" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="NumberСoils" Type="int" />
+    <Property Name="Manufacturer" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProfileCura" Type="varbinary(max)" />
+    <Property Name="PlasticName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="IDInsaid" Type="int" />
+  </EntityType>
+  <EntityType Name="PlasticType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="NameType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ProductsForEngraving">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProductTypeID" Type="int" />
+    <Property Name="Profile" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameType" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ReadyBody">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EngravingStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="RecyclingPlastic">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ColorNameRecucling" Type="nvarchar" MaxLength="50" />
+    <Property Name="PlasticTypeRecucling" Type="nvarchar" MaxLength="50" />
+    <Property Name="ManufacturerRecucling" Type="nvarchar" MaxLength="50" />
+    <Property Name="WeightRecucling" Type="decimal" Precision="18" Scale="3" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_IDProducts_ProductsForEngraving">
+    <End Role="ProductsForEngraving" Type="Self.ProductsForEngraving" Multiplicity="1" />
+    <End Role="IDProducts" Type="Self.IDProducts" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ProductsForEngraving">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="IDProducts">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlasticProducts_IDProducts">
+    <End Role="IDProducts" Type="Self.IDProducts" Multiplicity="1" />
+    <End Role="PlasticProducts" Type="Self.PlasticProducts" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="IDProducts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PlasticProducts">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlasticProducts_ProductType">
+    <End Role="ProductType" Type="Self.ProductType" Multiplicity="0..1" />
+    <End Role="PlasticProducts" Type="Self.PlasticProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PlasticProducts">
+        <PropertyRef Name="ProductTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductsForEngraving_ProductType">
+    <End Role="ProductType" Type="Self.ProductType" Multiplicity="0..1" />
+    <End Role="ProductsForEngraving" Type="Self.ProductsForEngraving" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductsForEngraving">
+        <PropertyRef Name="ProductTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище StockroomBinarModelContainer">
+    <EntitySet Name="ColorPlastic" EntityType="Self.ColorPlastic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DefectivePlastic" EntityType="Self.DefectivePlastic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Deliveries" EntityType="Self.Deliveries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IDProducts" EntityType="Self.IDProducts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlasticProducts" EntityType="Self.PlasticProducts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlasticStor" EntityType="Self.PlasticStor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlasticType" EntityType="Self.PlasticType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductsForEngraving" EntityType="Self.ProductsForEngraving" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReadyBody" EntityType="Self.ReadyBody" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RecyclingPlastic" EntityType="Self.RecyclingPlastic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_IDProducts_ProductsForEngraving" Association="Self.FK_IDProducts_ProductsForEngraving">
+      <End Role="ProductsForEngraving" EntitySet="ProductsForEngraving" />
+      <End Role="IDProducts" EntitySet="IDProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlasticProducts_IDProducts" Association="Self.FK_PlasticProducts_IDProducts">
+      <End Role="IDProducts" EntitySet="IDProducts" />
+      <End Role="PlasticProducts" EntitySet="PlasticProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlasticProducts_ProductType" Association="Self.FK_PlasticProducts_ProductType">
+      <End Role="ProductType" EntitySet="ProductType" />
+      <End Role="PlasticProducts" EntitySet="PlasticProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductsForEngraving_ProductType" Association="Self.FK_ProductsForEngraving_ProductType">
+      <End Role="ProductType" EntitySet="ProductType" />
+      <End Role="ProductsForEngraving" EntitySet="ProductsForEngraving" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
